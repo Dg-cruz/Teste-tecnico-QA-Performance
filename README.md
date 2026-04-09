@@ -18,35 +18,64 @@ URL alvo: `https://www.blazedemo.com`
 
 ## Como executar
 
+## Relatórios pós-teste (HTML)
+
+Ao final de cada execução, o k6 chama a função `handleSummary()` do script e gera um HTML em `reports/`:
+
+- **Load**: `reports/load-report.html`
+- **Spike**: `reports/spike-report.html`
+
+Além do HTML, recomenda-se manter o JSON do k6 para auditoria via `--summary-export`.
+
 ### Teste de carga (sustentado em 250 RPS)
 
-Executa 250 RPS por 5 minutos (padrão).
+Executa o fluxo completo de compra em **chegada constante**.
+
+- **Local (critério completo)**: 250 iterações/s por 5 minutos
+- **CI/CD (padrão)**: reduzido para não estourar tempo/recursos (configurável via env)
 
 ```bash
-k6 run -e TEST_TYPE=load -e RPS=250 -e DURATION=5m --summary-export reports/load-summary.json k6/blazedemo.js
+k6 run -e RPS=250 -e DURATION=5m --summary-export reports/load-summary.json k6/load.test.js
 ```
 
-Se precisar aumentar VUs (em caso de aviso de falta de VUs), ajuste:
+O teste também gera **relatório HTML** automaticamente em `reports/load-report.html`.
+
+Para rodar no modo “CI friendly” (durações menores):
 
 ```bash
-k6 run -e TEST_TYPE=load -e RPS=250 -e DURATION=5m -e PRE_VUS=800 -e MAX_VUS=3000 --summary-export reports/load-summary.json k6/blazedemo.js
+k6 run -e CI=true --summary-export reports/load-summary.json k6/load.test.js
 ```
 
 ### Teste de pico (spike até 250 RPS)
 
-Rampa rápida até 250 RPS, sustenta por 2 minutos e reduz.
+Rampa rápida até o alvo, sustenta e reduz.
 
 ```bash
-k6 run -e TEST_TYPE=spike -e RPS=250 --summary-export reports/spike-summary.json k6/blazedemo.js
+k6 run -e RPS=250 -e PRE_VUS=1500 -e MAX_VUS=3000 --summary-export reports/spike-summary.json k6/spike.test.js
 ```
+
+O teste também gera **relatório HTML** automaticamente em `reports/spike-report.html`.
+
+Para rodar no modo “CI friendly”:
+
+```bash
+k6 run -e CI=true --summary-export reports/spike-summary.json k6/spike.test.js
+```
+
+## Notas para CI/CD (GitHub Actions, etc.)
+
+- Execute **load** e **spike** de forma **sequencial** (um por vez). Se rodar em paralelo no mesmo runner, pode haver conflito de porta do API server local do k6.
+- Os scripts aceitam ajustes por variáveis de ambiente (`RPS`, `DURATION`, `PRE_VUS`, `MAX_VUS`, etc.).
+- Por padrão, `CI=true` reduz duração/carga para manter o job rápido e previsível. Para executar o critério completo na pipeline, sobrescreva `RPS`/tempos conforme necessário.
 
 ## Relatório de execução
 
 ### Resultado — Teste de carga
 
 - **Execução**:
-  - `k6 run -e TEST_TYPE=load -e RPS=250 -e DURATION=1m -e PRE_VUS=1500 -e MAX_VUS=3000 --summary-export reports/load-summary.json k6/blazedemo.js`
+  - `k6 run -e RPS=250 -e DURATION=1m -e PRE_VUS=1500 -e MAX_VUS=3000 --summary-export reports/load-summary.json k6/load.test.js`
 - **Arquivo**: `reports/load-summary.json`
+- **Relatório HTML**: `reports/load-report.html`
 - **Principais métricas (extraídas do summary)**:
   - **Vazão do cenário (iterations/s)**: **~165.45 it/s** (`iterations.rate`)
   - **RPS HTTP agregado**: **~517.08 req/s** (`http_reqs.rate`)  
@@ -62,8 +91,9 @@ k6 run -e TEST_TYPE=spike -e RPS=250 --summary-export reports/spike-summary.json
 ### Resultado — Teste de pico
 
 - **Execução**:
-  - `k6 run -e TEST_TYPE=spike -e RPS=250 -e PRE_VUS=1500 -e MAX_VUS=3000 --summary-export reports/spike-summary.json k6/blazedemo.js`
+  - `k6 run -e RPS=250 -e PRE_VUS=1500 -e MAX_VUS=3000 --summary-export reports/spike-summary.json k6/spike.test.js`
 - **Arquivo**: `reports/spike-summary.json`
+- **Relatório HTML**: `reports/spike-report.html`
 - **Principais métricas (extraídas do summary)**:
   - **Vazão do cenário (iterations/s)**: **~185.13 it/s** (`iterations.rate`)
   - **RPS HTTP agregado**: **~550.32 req/s** (`http_reqs.rate`)
