@@ -1,0 +1,212 @@
+{
+    "root_group": {
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {
+            "Compra de passagem aérea - sucesso": {
+                "name": "Compra de passagem aérea - sucesso",
+                "path": "::Compra de passagem aérea - sucesso",
+                "id": "137af1b8ac04736ad9981dd0f748f465",
+                "groups": {},
+                "checks": {
+                        "home: status 200": {
+                            "path": "::Compra de passagem aérea - sucesso::home: status 200",
+                            "id": "70a6725c741eba0a8a8a58763e377594",
+                            "passes": 7251,
+                            "fails": 5429,
+                            "name": "home: status 200"
+                        },
+                        "home: has destination form": {
+                            "fails": 5429,
+                            "name": "home: has destination form",
+                            "path": "::Compra de passagem aérea - sucesso::home: has destination form",
+                            "id": "344047797b43f09aeab7fba5be95e294",
+                            "passes": 7251
+                        },
+                        "reserve: status 200": {
+                            "passes": 7134,
+                            "fails": 5546,
+                            "name": "reserve: status 200",
+                            "path": "::Compra de passagem aérea - sucesso::reserve: status 200",
+                            "id": "3817a9ffae415905930bdbc9be359896"
+                        },
+                        "reserve: found flight option": {
+                            "passes": 7134,
+                            "fails": 5546,
+                            "name": "reserve: found flight option",
+                            "path": "::Compra de passagem aérea - sucesso::reserve: found flight option",
+                            "id": "b8d364965ee2de5d9d51da7c28a74e66"
+                        },
+                        "purchase: status 200": {
+                            "id": "2dba3df5e5bcd229e4848e0fa8d17041",
+                            "passes": 3963,
+                            "fails": 3171,
+                            "name": "purchase: status 200",
+                            "path": "::Compra de passagem aérea - sucesso::purchase: status 200"
+                        },
+                        "purchase: has confirmation form": {
+                            "name": "purchase: has confirmation form",
+                            "path": "::Compra de passagem aérea - sucesso::purchase: has confirmation form",
+                            "id": "0073a9550fb846b3849c415caeb687a7",
+                            "passes": 3963,
+                            "fails": 3171
+                        },
+                        "confirmation: status 200": {
+                            "name": "confirmation: status 200",
+                            "path": "::Compra de passagem aérea - sucesso::confirmation: status 200",
+                            "id": "62100db5f5d595858e3054633e428e0e",
+                            "passes": 3996,
+                            "fails": 3138
+                        },
+                        "confirmation: success message": {
+                            "path": "::Compra de passagem aérea - sucesso::confirmation: success message",
+                            "id": "6157b5b0292a8f88ad0dc9adde661488",
+                            "passes": 3996,
+                            "fails": 3138,
+                            "name": "confirmation: success message"
+                        },
+                        "confirmation: has Id": {
+                            "fails": 3138,
+                            "name": "confirmation: has Id",
+                            "path": "::Compra de passagem aérea - sucesso::confirmation: has Id",
+                            "id": "9c9de790081cc3c50e3da2b60f5b9078",
+                            "passes": 3996
+                        }
+                    }
+            }
+        },
+        "checks": {}
+    },
+    "metrics": {
+        "data_received": {
+            "rate": 2016030.6721906015,
+            "count": 154503445
+        },
+        "http_reqs": {
+            "count": 39628,
+            "rate": 517.0840266867134
+        },
+        "checks": {
+            "passes": 48684,
+            "fails": 37706,
+            "thresholds": {
+                "rate>0.99": true
+            },
+            "value": 0.5635374464637111
+        },
+        "group_duration": {
+            "max": 51889.6928,
+            "p(90)": 25320.070530000005,
+            "p(95)": 30354.900214999998,
+            "avg": 12071.657833130883,
+            "min": 352.8862,
+            "med": 10625.532350000001
+        },
+        "http_req_sending": {
+            "avg": 0.03229847077823761,
+            "min": 0,
+            "med": 0,
+            "max": 2.5926,
+            "p(90)": 0,
+            "p(95)": 0.5045
+        },
+        "http_req_blocked": {
+            "avg": 44.123421608458756,
+            "min": 0,
+            "med": 0,
+            "max": 12158.2833,
+            "p(90)": 0,
+            "p(95)": 310.809385
+        },
+        "http_req_receiving": {
+            "p(95)": 283.4722000000001,
+            "avg": 43.981043216917385,
+            "min": 0,
+            "med": 14.82965,
+            "max": 13642.2528,
+            "p(90)": 78.38642000000009
+        },
+        "http_req_failed": {
+            "fails": 22344,
+            "passes": 17284,
+            "thresholds": {
+                "rate<0.01": true
+            },
+            "value": 0.4361562531543353
+        },
+        "http_req_duration{expected_response:true}": {
+            "max": 31671.0668,
+            "p(90)": 10349.14175,
+            "p(95)": 10479.987035,
+            "avg": 5567.530588471164,
+            "min": 254.6894,
+            "med": 5523.0125
+        },
+        "http_req_connecting": {
+            "avg": 12.730990226607453,
+            "min": 0,
+            "med": 0,
+            "max": 7066.5598,
+            "p(90)": 0,
+            "p(95)": 33.201055000000004
+        },
+        "iterations": {
+            "count": 12680,
+            "rate": 165.4543620265349
+        },
+        "http_req_tls_handshaking": {
+            "p(95)": 274.5351,
+            "avg": 31.388329431210288,
+            "min": 0,
+            "med": 0,
+            "max": 11816.9931,
+            "p(90)": 0
+        },
+        "http_req_duration": {
+            "max": 31671.0668,
+            "p(90)": 10309.6961,
+            "p(95)": 10464.444660000001,
+            "avg": 3818.5068855833915,
+            "min": 0,
+            "med": 1044.4737,
+            "thresholds": {
+                "p(90)<2000": true
+            }
+        },
+        "data_sent": {
+            "count": 9492514,
+            "rate": 123862.60630110024
+        },
+        "dropped_iterations": {
+            "count": 2321,
+            "rate": 30.285455383563686
+        },
+        "iteration_duration": {
+            "max": 51904.5543,
+            "p(90)": 25464.189459999998,
+            "p(95)": 30462.029434999997,
+            "avg": 12171.242365583557,
+            "min": 359.7068,
+            "med": 10722.9636
+        },
+        "http_req_waiting": {
+            "min": 0,
+            "med": 969.69705,
+            "max": 31660.8114,
+            "p(90)": 10275.5606,
+            "p(95)": 10409.84878,
+            "avg": 3774.4935438957305
+        },
+        "vus": {
+            "value": 11,
+            "min": 11,
+            "max": 3000
+        },
+        "vus_max": {
+            "max": 3000,
+            "value": 3000,
+            "min": 1500
+        }
+    }
+}
